@@ -79,8 +79,8 @@ CREATE TABLE `go2run_coupon_user` (
   `deleted` tinyint(1) NOT NULL,
   `tenant_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `ix_yshop_coupon_user_coupon_id` (`coupon_id`),
-  KEY `ix_yshop_coupon_user_uid` (`uid`)
+  KEY `ix_go2order_coupon_user_coupon_id` (`coupon_id`),
+  KEY `ix_go2order_coupon_user_uid` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `go2run_order_number`;
@@ -123,7 +123,7 @@ CREATE TABLE `go2run_score_order` (
   `tenant_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `order_id` (`order_id`),
-  KEY `ix_yshop_score_order_uid` (`uid`)
+  KEY `ix_go2order_score_order_uid` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `go2run_score_product`;
@@ -214,7 +214,7 @@ CREATE TABLE `go2run_store_order` (
   `tenant_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `order_id` (`order_id`),
-  KEY `ix_yshop_store_order_uid` (`uid`)
+  KEY `ix_go2order_store_order_uid` (`uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `go2run_store_order_cart_info`;
@@ -236,7 +236,7 @@ CREATE TABLE `go2run_store_order_cart_info` (
   `price` decimal(10,2) NOT NULL COMMENT '价格',
   `cancelled` tinyint(1) DEFAULT '0' COMMENT '是否退单(0否1是)',
   PRIMARY KEY (`id`),
-  KEY `ix_yshop_store_order_cart_info_oid` (`oid`)
+  KEY `ix_go2order_store_order_cart_info_oid` (`oid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `go2run_store_order_status`;
@@ -249,7 +249,7 @@ CREATE TABLE `go2run_store_order_status` (
   `change_message` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '操作备注',
   `change_time` datetime DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`id`),
-  KEY `ix_yshop_store_order_status_oid` (`oid`)
+  KEY `ix_go2order_store_order_status_oid` (`oid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `go2run_store_product`;
@@ -319,7 +319,7 @@ CREATE TABLE `go2run_store_product_attr` (
   `deleted` tinyint(1) NOT NULL,
   `tenant_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `ix_yshop_store_product_attr_product_id` (`product_id`)
+  KEY `ix_go2order_store_product_attr_product_id` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `go2run_store_product_attr_result`;
@@ -331,7 +331,7 @@ CREATE TABLE `go2run_store_product_attr_result` (
   `result` text COLLATE utf8mb4_unicode_ci COMMENT '商品属性参数',
   `change_time` int DEFAULT NULL COMMENT '变动时间',
   PRIMARY KEY (`id`),
-  KEY `ix_yshop_store_product_attr_result_product_id` (`product_id`)
+  KEY `ix_go2order_store_product_attr_result_product_id` (`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `go2run_store_product_attr_value`;
@@ -353,7 +353,7 @@ CREATE TABLE `go2run_store_product_attr_value` (
   `volume` decimal(10,2) NOT NULL COMMENT '体积',
   `integral` int NOT NULL COMMENT '需要多少积分兑换',
   PRIMARY KEY (`id`),
-  KEY `ix_yshop_store_product_attr_value_product_id` (`product_id`)
+  KEY `ix_go2order_store_product_attr_value_product_id` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `go2run_store_product_category`;
@@ -400,7 +400,7 @@ CREATE TABLE `go2run_store_product_reply` (
   `deleted` tinyint(1) NOT NULL,
   `tenant_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `ix_yshop_store_product_reply_product_id` (`product_id`)
+  KEY `ix_go2order_store_product_reply_product_id` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `go2run_store_product_rule`;
@@ -518,8 +518,8 @@ CREATE TABLE `go2run_user` (
   `deleted` tinyint(1) NOT NULL,
   `tenant_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `ix_yshop_user_mobile` (`mobile`),
-  KEY `ix_yshop_user_username` (`username`)
+  KEY `ix_go2order_user_mobile` (`mobile`),
+  KEY `ix_go2order_user_username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `go2run_user_address`;
@@ -545,7 +545,7 @@ CREATE TABLE `go2run_user_address` (
   `deleted` tinyint(1) NOT NULL,
   `tenant_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `ix_yshop_user_address_uid` (`uid`)
+  KEY `ix_go2order_user_address_uid` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `go2run_user_bill`;
@@ -570,7 +570,7 @@ CREATE TABLE `go2run_user_bill` (
   `deleted` tinyint(1) NOT NULL,
   `tenant_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `ix_yshop_user_bill_uid` (`uid`)
+  KEY `ix_go2order_user_bill_uid` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `system_dept`;
