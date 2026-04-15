@@ -1,0 +1,43 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.env
+.venv/
+venv/
+uploads/
+*.db
+.idea/
+.vscode/
+.gstack/
+.claude/
+node_modules/
+*.jpg
+*.png
+
+# Unrelated subprojects
+campus-love/
+landing/
+ai-travel/
+Knit_*.md
+Knit_*.html
+knit_agent_*.jsonl
+
+# Misc docs not part of app
+*.pptx
+*.docx
+*.csv
+Go2Run_*.md
+Gamebot*.pptx
+RAG_FAQ_*.md
+.DS_Store
+
+# Other unrelated dirs/files
+demo-platform/
+sbti-clone/
+travel-planner/
+email_verification_code*.html
+gen_boss_doc.py
+小红书文案*.md
+朋友圈文案*.md
