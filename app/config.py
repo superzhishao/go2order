@@ -4,7 +4,7 @@ from typing import Optional
 
 class Settings(BaseSettings):
     # App
-    APP_NAME: str = "Go2Run Order System"
+    APP_NAME: str = "Go2Order"
     APP_VERSION: str = "1.0.0"
     DEBUG: bool = True
     API_PREFIX: str = "/api"

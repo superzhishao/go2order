@@ -1,145 +1,98 @@
-# YShop Drink - Python 版
+# Go2Order
 
-基于 [yshop-drink](https://gitee.com/guchengwuyue/yshop-drink) 的 Python 复刻版本。
+Scan-to-order restaurant system with multi-language and multi-currency support.
 
-扫码点餐系统，支持在线点餐（外卖与自取）、多门店模式。
+## Tech Stack
 
-## 技术栈
+- **Backend**: FastAPI + SQLAlchemy 2.0 (async) + MySQL 8.0
+- **Frontend**: Single-file SPA (vanilla HTML/CSS/JS, no build tools)
+- **Auth**: JWT (python-jose)
+- **Cache**: Redis (aioredis)
 
-| 原版 (Java) | Python 版 |
-|---|---|
-| Spring Boot 3 | FastAPI |
-| MyBatis Plus | SQLAlchemy 2.0 (async) |
-| Spring Security OAuth2 | JWT (python-jose) |
-| MySQL | PostgreSQL |
-| Redis | Redis (aioredis) |
-| Maven | pip |
+## Features
 
-## 功能模块
+- **11 Languages** — zh, en, de, fr, it, es, ja, ko, pt, hi, ar
+- **Multi-currency** — configurable per shop (¥, $, €, £, etc.)
+- **QR Table Ordering** — customers scan, select language, order from phone
+- **Admin Panel** — products, orders, tables, coupons, settings
+- **Multi-store** — multiple shops with independent settings
+- **Product i18n** — name, description, info all support per-language translations
+- **Round-based Orders** — group orders by table + time round for kitchen efficiency
 
-- **会员认证** - 手机号登录、短信验证码登录、微信小程序登录、JWT Token
-- **门店管理** - 多门店、营业状态、地理位置、配送范围
-- **商品管理** - 分类、商品(多规格SKU)、上下架
-- **订单管理** - 自取/外卖、取餐号、订单状态流转、退款
-- **优惠券** - 创建、领取、使用、过期管理
-- **积分系统** - 积分商品、积分兑换
-- **管理后台** - 商品/订单/门店/会员/优惠券/积分 CRUD
+## Quick Start
 
-## 项目结构
-
-```
-app/
-├── main.py              # FastAPI 入口
-├── config.py            # 配置
-├── database.py          # 数据库连接
-├── deps.py              # 依赖注入 (认证等)
-├── models/              # SQLAlchemy 模型
-│   ├── user.py          # 会员、地址、账单
-│   ├── product.py       # 商品、分类、SKU
-│   ├── order.py         # 订单、订单详情
-│   ├── store.py         # 门店
-│   ├── coupon.py        # 优惠券
-│   ├── score.py         # 积分商品/订单
-│   └── system.py        # 系统用户、角色、菜单
-├── schemas/             # Pydantic 请求/响应模型
-├── services/            # 业务逻辑层
-├── api/
-│   ├── app/             # 移动端/H5 API (/app-api)
-│   └── admin/           # 管理后台 API (/admin-api)
-└── utils/               # 工具函数
-```
-
-## 快速启动
-
-### 方式一：Docker Compose（推荐）
-
-```bash
-docker-compose up -d
-```
-
-服务启动后：
-- API: http://localhost:8080
-- API 文档: http://localhost:8080/docs
-- PostgreSQL: localhost:5432
-- Redis: localhost:6379
-
-### 方式二：本地开发
-
-#### 1. 环境要求
-
-- Python 3.11+
-- PostgreSQL 14+
-- Redis 6+
-
-#### 2. 安装依赖
+### 1. Install dependencies
 
 ```bash
 python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-#### 3. 配置环境变量
+### 2. Configure
 
 ```bash
 cp .env.example .env
-# 编辑 .env 配置数据库和 Redis 连接
+# Edit .env: set DATABASE_URL, REDIS_URL, SECRET_KEY
 ```
 
-#### 4. 创建数据库
+### 3. Seed database (first time)
+
+The app auto-seeds on first startup if the database is empty. Or run manually:
 
 ```bash
-createdb yshop_drink
+python -m scripts.seed
 ```
 
-#### 5. 运行数据库迁移
+This imports `scripts/init-db.sql` with full schema + demo data (shop, products, categories, tables, admin user).
 
-```bash
-alembic revision --autogenerate -m "init"
-alembic upgrade head
-```
-
-#### 6. 创建管理员账号
-
-```python
-# 使用 Python shell
-from app.utils.security import hash_password
-print(hash_password("admin123"))
-# 将密码哈希插入 system_users 表
-```
-
-#### 7. 启动服务
+### 4. Run
 
 ```bash
 uvicorn app.main:app --host 0.0.0.0 --port 8080 --reload
 ```
 
-## API 文档
+- **Customer H5**: http://localhost:8080/
+- **Admin Panel**: http://localhost:8080/admin
+- **API Docs**: http://localhost:8080/docs
 
-启动后访问:
-- Swagger UI: http://localhost:8080/docs
-- ReDoc: http://localhost:8080/redoc
+Default admin login: `admin` / `admin123`
 
-### 主要 API 路径
+## Project Structure
 
-| 模块 | 移动端 | 管理后台 |
-|---|---|---|
-| 认证 | `/app-api/member/auth/*` | `/admin-api/system/auth/*` |
-| 商品 | `/app-api/product/*` | `/admin-api/product/*` |
-| 订单 | `/app-api/order/*` | `/admin-api/order/*` |
-| 门店 | `/app-api/store/*` | `/admin-api/store/*` |
-| 优惠券 | `/app-api/coupon/*` | `/admin-api/coupon/*` |
-| 积分 | `/app-api/score/*` | `/admin-api/score/*` |
-| 用户 | `/app-api/user/*` | `/admin-api/member/user/*` |
+```
+app/
+├── main.py              # FastAPI entry + auto-seed lifespan
+├── config.py            # Settings (.env)
+├── database.py          # SQLAlchemy async engine
+├── models/              # ORM models
+├── schemas/             # Pydantic request/response
+├── services/            # Business logic
+├── api/
+│   ├── app/             # Customer H5 API (/app-api)
+│   └── admin/           # Admin API (/admin-api)
+└── utils/               # Helpers (response, security)
 
-## 前端对接
+scripts/
+├── init-db.sql          # Full schema + seed data
+└── seed.py              # Auto-seed script
 
-本项目后端 API 设计兼容原版 yshop-drink 的前端：
-- **管理后台**: yshop-drink-vue3 (Vue3 + Element Plus)
-- **移动端**: yshop-drink-uniapp-vue3 (UniApp Vue3)
+static/
+├── h5/index.html        # Customer SPA
+└── admin/index.html     # Admin SPA
+```
 
-只需修改前端 `.env` 中的 API 地址即可对接。
+## API Routes
 
-## 开源协议
+| Module | Customer | Admin |
+|--------|----------|-------|
+| Auth | `/app-api/member/auth/*` | `/admin-api/system/auth/*` |
+| Products | `/app-api/product/*` | `/admin-api/product/*` |
+| Orders | `/app-api/order/*` | `/admin-api/order/*` |
+| Store | `/app-api/store/*` | `/admin-api/store/*` |
+| Coupons | `/app-api/coupon/*` | `/admin-api/coupon/*` |
+| Score | `/app-api/score/*` | `/admin-api/score/*` |
 
-MIT License
+## License
+
+MIT

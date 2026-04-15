@@ -1,5 +1,5 @@
 -- ==============================================
--- Knit (YShop Drink) Database Initialization
+-- Go2Order Database Initialization
 -- Full schema + seed data for demo/trial
 -- ==============================================
 
