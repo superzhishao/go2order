@@ -13,9 +13,6 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "mysql+aiomysql://root:root@localhost:3306/go2run_drink?charset=utf8mb4"
     DATABASE_ECHO: bool = False
 
-    # Redis
-    REDIS_URL: str = "redis://localhost:6379/0"
-
     # JWT
     SECRET_KEY: str = "go2run-secret-key-change-in-production"
     ALGORITHM: str = "HS256"

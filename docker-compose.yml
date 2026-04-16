@@ -7,12 +7,9 @@ services:
       - "8080:8080"
     environment:
       DATABASE_URL: mysql+aiomysql://root:go2run2024@db:3306/go2run_drink?charset=utf8mb4
-      REDIS_URL: redis://redis:6379/0
       SECRET_KEY: go2run-drink-secret-key-change-in-production
     depends_on:
       db:
-        condition: service_healthy
-      redis:
         condition: service_healthy
     volumes:
       - ./uploads:/app/uploads
@@ -34,16 +31,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
-
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
 
 volumes:
   mysqldata:
