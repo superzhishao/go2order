@@ -40,6 +40,7 @@ def is_empty(db: dict) -> bool:
         "mysql",
         f"-h{db['host']}", f"-P{db['port']}",
         f"-u{db['user']}", f"-p{db['password']}",
+        "--ssl-mode=DISABLED",
         db["database"],
         "-sNe", "SELECT COUNT(*) FROM go2run_store_shop",
     ]
@@ -62,6 +63,7 @@ def seed(db: dict) -> bool:
         "mysql",
         f"-h{db['host']}", f"-P{db['port']}",
         f"-u{db['user']}", f"-p{db['password']}",
+        "--ssl-mode=DISABLED",
         f"--default-character-set={db['charset']}",
     ]
     print(f"[seed] Importing {SQL_FILE.name} into {db['database']}...")
