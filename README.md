@@ -7,7 +7,7 @@ Scan-to-order restaurant system with multi-language and multi-currency support.
 - **Backend**: FastAPI + SQLAlchemy 2.0 (async) + MySQL 8.0
 - **Frontend**: Single-file SPA (vanilla HTML/CSS/JS, no build tools)
 - **Auth**: JWT (python-jose)
-- **Cache**: Redis (aioredis)
+- **Deploy**: Docker Compose
 
 ## Features
 
@@ -19,9 +19,23 @@ Scan-to-order restaurant system with multi-language and multi-currency support.
 - **Product i18n** — name, description, info all support per-language translations
 - **Round-based Orders** — group orders by table + time round for kitchen efficiency
 
-## Quick Start
+## Quick Start (Docker)
 
-### 1. Install dependencies
+```bash
+git clone https://github.com/superzhishao/go2order.git
+cd go2order
+docker compose up -d --build
+```
+
+First startup auto-seeds the database with demo data (shop, products with images, categories, tables, admin user).
+
+- **Admin Panel**: http://localhost:8080/
+- **Customer H5** (via table QR code): http://localhost:8080/h5
+- **API Docs**: http://localhost:8080/docs
+
+Default admin login: `admin` / `admin123`
+
+## Quick Start (Local)
 
 ```bash
 python -m venv venv
@@ -29,34 +43,14 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Configure
-
 ```bash
 cp .env.example .env
-# Edit .env: set DATABASE_URL, REDIS_URL, SECRET_KEY
+# Edit .env: set DATABASE_URL, SECRET_KEY
 ```
-
-### 3. Seed database (first time)
-
-The app auto-seeds on first startup if the database is empty. Or run manually:
-
-```bash
-python -m scripts.seed
-```
-
-This imports `scripts/init-db.sql` with full schema + demo data (shop, products, categories, tables, admin user).
-
-### 4. Run
 
 ```bash
 uvicorn app.main:app --host 0.0.0.0 --port 8080 --reload
 ```
-
-- **Customer H5**: http://localhost:8080/
-- **Admin Panel**: http://localhost:8080/admin
-- **API Docs**: http://localhost:8080/docs
-
-Default admin login: `admin` / `admin123`
 
 ## Project Structure
 
@@ -78,8 +72,9 @@ scripts/
 └── seed.py              # Auto-seed script
 
 static/
-├── h5/index.html        # Customer SPA
-└── admin/index.html     # Admin SPA
+├── h5/index.html        # Customer ordering SPA (accessed via table QR code)
+├── admin/index.html     # Admin SPA (served at /)
+└── uploads/             # Seed images (products + categories)
 ```
 
 ## API Routes
