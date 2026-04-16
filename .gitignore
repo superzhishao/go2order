@@ -7,14 +7,21 @@ build/
 .venv/
 venv/
 uploads/
+!static/uploads/
+!static/uploads/products/
+!static/uploads/categories/
 *.db
 .idea/
 .vscode/
 .gstack/
 .claude/
 node_modules/
+
+# Ignore user-uploaded images, but keep seed images
 *.jpg
 *.png
+!static/uploads/products/*.jpg
+!static/uploads/categories/*.jpg
 
 # Unrelated subprojects
 campus-love/
