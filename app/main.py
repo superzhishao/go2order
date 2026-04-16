@@ -101,14 +101,14 @@ NO_CACHE = {"Cache-Control": "no-cache, no-store, must-revalidate", "Pragma": "n
 
 @app.get("/")
 async def root():
-    """Serve H5 frontend."""
-    return FileResponse(str(STATIC_DIR / "h5" / "index.html"), headers=NO_CACHE)
-
-
-@app.get("/admin")
-async def admin_page():
-    """Serve admin panel."""
+    """Serve admin panel at root."""
     return FileResponse(str(STATIC_DIR / "admin" / "index.html"), headers=NO_CACHE)
+
+
+@app.get("/h5")
+async def h5_page():
+    """Serve customer H5 ordering page (accessed via table QR code)."""
+    return FileResponse(str(STATIC_DIR / "h5" / "index.html"), headers=NO_CACHE)
 
 
 @app.get("/api-info")

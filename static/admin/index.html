@@ -2918,7 +2918,7 @@ async function doBatchCreate() {
 }
 
 function showQrModal(tableNo, shopId) {
-  const url = `http://119.28.27.124:8080/#/home?table=${encodeURIComponent(tableNo)}&shop_id=${shopId}`;
+  const url = `http://119.28.27.124:8080/h5#/home?table=${encodeURIComponent(tableNo)}&shop_id=${shopId}`;
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(url)}`;
   document.getElementById('qrImage').src = qrUrl;
   document.getElementById('qrTableLabel').textContent = at('table.qrLabel') + tableNo;
