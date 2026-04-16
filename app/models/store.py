@@ -36,3 +36,4 @@ class StoreShop(BaseMixin, Base):
     currency: Mapped[Optional[str]] = mapped_column(String(10), default="¥", comment="货币符号")
     enabled_languages: Mapped[Optional[str]] = mapped_column(JSON, default=None, comment="启用的客户端语言,如['en','zh']")
     default_language: Mapped[Optional[str]] = mapped_column(String(10), default=None, comment="默认客户端语言")
+    domain: Mapped[Optional[str]] = mapped_column(String(255), default=None, comment="店铺域名(用于二维码生成,如 https://example.com)")

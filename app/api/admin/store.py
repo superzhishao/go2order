@@ -91,6 +91,7 @@ async def get_shop_settings(
         "noticeI18n": shop.notice_i18n,
         "enabledLanguages": shop.enabled_languages or [],
         "defaultLanguage": shop.default_language or "zh",
+        "domain": shop.domain or "",
     })
 
 
@@ -123,5 +124,7 @@ async def update_shop_settings(
         shop.enabled_languages = [l for l in req["enabledLanguages"] if l in valid]
     if "defaultLanguage" in req:
         shop.default_language = req["defaultLanguage"]
+    if "domain" in req:
+        shop.domain = req["domain"].strip().rstrip("/")
     await db.flush()
     return success(msg="保存成功")

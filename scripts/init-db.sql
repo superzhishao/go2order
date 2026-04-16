@@ -453,6 +453,7 @@ CREATE TABLE `go2run_store_shop` (
   `currency` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT '¥' COMMENT '货币符号',
   `enabled_languages` json DEFAULT NULL COMMENT '启用的客户端语言',
   `default_language` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '默认客户端语言',
+  `domain` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '店铺域名(用于二维码生成)',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
